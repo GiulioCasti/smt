@@ -1,6 +1,6 @@
 from z3 import *
 
-# Declaring a real variable x with name 'x' (names are only used for printing)
+# Declaring a integer variable x with name 'x' (names are only used for printing)
 x = Int('x')
 
 # Declaring an integer variable y with name 'y'

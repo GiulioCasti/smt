@@ -10,7 +10,9 @@ Throughout the seminar, students will actively engage with the material by worki
 
 
 ## Exam
-The final assessment consists of a small project developed using the Z3 Python APIs.
+
+Solve this [problem](Exercises/Exam.py) using z3.
+
 
 ## Requirements
 
@@ -22,14 +24,15 @@ Install z3 Python APIs through pip:
 [Programming z3](https://theory.stanford.edu/~nikolaj/programmingz3.html)
 
 ## Content
-- [Sudoku](sudoku.py)
-- [Die hard problem](die_hard_problem.py)
-- [Claw Machine (AoC 2024)](clawMachine.py)
-- [Exercises](exercises/)
-    - [Ex1 - Arithmetic](exercises/Ex1_Arith.py)
-    - [Ex2 - Combinatorial](exercises/Ex2_Fruit.py)
-    - [Ex3 - Deduction](exercises/Ex3_Pinna_case.py)
-    - [Ex4 - Strategic](exercises/Ex4_River_crossing.py.py)
+- [Material](Material/)
+    - [01 - Basics](Material/01_Basics.py)
+    - [02 - Proofs and Counterexamples](Material/02_Certificates.py)
+    - [03 - Optimization and Model Counting](Material/03_Optimization.py)
+    - [04 - Bounded Model Checking](Material/04_BoundedModelChecking.py)
+    - [05 - Quantifiers](Material/05_Quantifiers.py)
+- [Exercises](exercises/): one file per each file in Material, with exercises of increasing difficulty
+
+
 
 ## References
 

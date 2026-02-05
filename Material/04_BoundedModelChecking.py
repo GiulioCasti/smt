@@ -26,6 +26,7 @@ from z3 import *
 # Create a list of integer variables x_0, x_1, ..., x_9
 x = [Int(f'x_{i}') for i in range(10)] 
 
+
 # Create a datatype to represent the functions f and g
 Function = Datatype('Functions')
 Function.declare('f')
@@ -60,7 +61,6 @@ for i in range(9):
     )
     s.add(transition)   
     # check if property P is satisfied at step i+1
-    s.push()  # save the current state of the solver
     status = s.check(And(x[i+1] > 335, x[i+1] < 345))  # add the property constraint
     if status == sat:
         print(f"Property satisfied at step {i+1}")

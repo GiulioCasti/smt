@@ -1,5 +1,7 @@
 
 ## Exam
+from z3 import *
+from utils import *
 
 # Consider the following Counting game:
 #
@@ -43,7 +45,70 @@
 #   Step 3: operation - with number 8 -> result 462
 #   Final number: 462
 #   Distance from goal: 0
-#
+
+
+def CountingStrategy(numbers, goal):
+
+    op_symbols = ["+", "-", "*", "/"]
+    
+    for max_dist in range(goal): 
+        for num_elements in range(1, 7):
+            s = Solver()
+            
+            # x[i] partial results
+            x = [Int(f'x_{i}') for i in range(num_elements)]
+            # u[i] choosen numbers from the hand
+            u = [Int(f'u_{i}') for i in range(num_elements)]
+            # idx[i] original indices of the choosen numbers in the hand (0 to 5)
+            idx = [Int(f'idx_{i}') for i in range(num_elements)]
+            # op[i] operation
+            op = [Int(f'op_{i}') for i in range(num_elements - 1)]
+
+            for i in range(num_elements):
+                
+                s.add(idx[i] >= 0, idx[i] < 6)
+                
+                for precedente in range(i):
+                    s.add(idx[i] != idx[precedente])
+                
+                s.add(u[i] == If(idx[i] == 0, numbers[0],
+                                If(idx[i] == 1, numbers[1],
+                                If(idx[i] == 2, numbers[2],
+                                If(idx[i] == 3, numbers[3],
+                                If(idx[i] == 4, numbers[4], numbers[5]))))))
+            # initial state
+            s.add(x[0] == u[0])
+
+            for i in range(num_elements - 1):
+                plus = (x[i+1] == x[i] + u[i+1])
+                minus = (x[i+1] == x[i] - u[i+1])
+                times = (x[i+1] == x[i] * u[i+1])
+                divide = And(u[i+1] != 0, x[i] % u[i+1] == 0, x[i+1] == x[i] / u[i+1])
+                
+                s.add(Or(
+                    And(op[i] == 0, plus),
+                    And(op[i] == 1, minus),
+                    And(op[i] == 2, times),
+                    And(op[i] == 3, divide)
+                ))
+
+            diff = x[num_elements - 1] - goal
+            dist = If(diff >= 0, diff, -diff)
+            s.add(dist <= max_dist)
+
+            if s.check() == sat:
+                m = s.model()
+                print(f"Initial number: {m[u[0]]}")
+                for j in range(num_elements - 1):
+                    o_idx = m[op[j]].as_long()
+                    print(f"Step {j+1}: operation {op_symbols[o_idx]} with number {m[u[j+1]]} -> result {m[x[j+1]]}")
+                
+                final_val = m[x[num_elements-1]].as_long()
+                print(f"Final number: {final_val}")
+                print(f"Distance from goal: {abs(final_val - goal)}")
+                return
+
+CountingStrategy([1, 3, 5, 8, 10, 50], 462)
 
 
 # [Optional]

@@ -1,11 +1,12 @@
-
+from z3 import *
+from utils import *
+set_param(proof=True)
 # 04.1 (Die Hard 3 water pouring puzzle)
 # You have a 3-gallon jug and a 5-gallon jug, and an unlimited supply of water (but no measuring cups).
 # You can fill up a jug, empty a jug, or pour water from one jug to the other until either the first jug is empty or the second jug is full.
 # You need to measure out exactly 4 gallons of water.
 # How can you do it?
 # Write a Bounded Model Checking procedure to solve this problem.
-
 
 # 04.2 (Parametric Die Hard 3 water pouring puzzle)
 # You have a n1-gallon jug and a n2-gallon jug.
